@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الأسرار</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0a0a0f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Amiri', serif;
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Stars background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(70, 40, 120, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(30, 60, 100, 0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .stars span {
+      position: absolute;
+      display: block;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle var(--d) ease-in-out infinite var(--delay);
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(1); }
+      50% { opacity: var(--max-op); transform: scale(1.4); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      width: 90%;
+      max-width: 680px;
+      text-align: center;
+      padding: 2rem;
+      margin: auto;
+    }
+
+    .message-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(200, 170, 100, 0.18);
+      border-radius: 18px;
+      padding: 2.8rem 2.2rem 2.2rem;
+      backdrop-filter: blur(10px);
+      box-shadow:
+        0 0 40px rgba(200, 170, 80, 0.07),
+        inset 0 0 30px rgba(255, 255, 255, 0.02);
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.6s ease;
+    }
+
+    .message-box.glow {
+      border-color: rgba(200, 170, 100, 0.45);
+      box-shadow:
+        0 0 60px rgba(200, 160, 60, 0.18),
+        inset 0 0 30px rgba(255, 255, 255, 0.04);
+    }
+
+    .ornament {
+      color: rgba(200, 170, 80, 0.6);
+      font-size: 1.4rem;
+      letter-spacing: 8px;
+      margin-bottom: 1rem;
+      opacity: 0.7;
+    }
+
+    .message-text {
+      color: #e8d8a0;
+      font-size: 1.45rem;
+      line-height: 2.1;
+      font-weight: 400;
+      word-spacing: 4px;
+      text-shadow: 0 0 20px rgba(220, 190, 80, 0.3);
+      white-space: pre-line;
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    .message-text .highlight {
+      color: #f0c040;
+      font-weight: 700;
+    }
+
+    .final-message {
+      color: #d4e8c0;
+      font-size: 1.35rem;
+      line-height: 2.2;
+      text-shadow: 0 0 25px rgba(160, 220, 100, 0.25);
+    }
+
+    .final-message .special {
+      color: #a8e080;
+      font-size: 1.5rem;
+      display: block;
+      margin: 0.6rem 0;
+    }
+
+    .final-message .closing {
+      color: #f0d090;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      display: block;
+      font-style: italic;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .divider {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(200, 170, 80, 0.5), transparent);
+      margin: 1.2rem auto;
+    }
+
+    .input-section {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    .input-hint {
+      color: rgba(200, 180, 120, 0.45);
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      font-style: italic;
+    }
+
+    .input-field {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(200, 170, 80, 0.25);
+      border-radius: 50px;
+      padding: 0.85rem 1.6rem;
+      color: #e8d8a0;
+      font-family: 'Amiri', serif;
+      font-size: 1.15rem;
+      text-align: center;
+      outline: none;
+      transition: all 0.4s ease;
+      caret-color: #f0c040;
+    }
+
+    .input-field::placeholder {
+      color: rgba(200, 170, 80, 0.3);
+      font-style: italic;
+    }
+
+    .input-field:focus {
+      border-color: rgba(200, 170, 80, 0.6);
+      background: rgba(255, 255, 255, 0.07);
+      box-shadow: 0 0 20px rgba(200, 160, 60, 0.12);
+    }
+
+    .input-field.shaking-text {
+      animation: textShake 0.16s linear infinite;
+    }
+
+    @keyframes textShake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-1px) rotate(-0.2deg); }
+      50% { transform: translateX(1px) rotate(0.2deg); }
+      75% { transform: translateX(-1px) rotate(-0.2deg); }
+      100% { transform: translateX(0); }
+    }
+
+    .doom-shake {
+      display: inline-block;
+      letter-spacing: 2px;
+      color: #ff6b5b;
+      text-shadow: 0 0 12px rgba(255, 70, 60, 0.45);
+      animation: doomShake 0.12s steps(2, end) infinite;
+    }
+
+    @keyframes doomShake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(-1px, 1px) rotate(-0.5deg); }
+      50% { transform: translate(1px, -1px) rotate(0.6deg); }
+      75% { transform: translate(-1px, -1px) rotate(-0.4deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    .error-msg {
+      color: rgba(220, 100, 80, 0.7);
+      font-size: 0.88rem;
+      min-height: 1.2em;
+      transition: opacity 0.4s;
+    }
+
+    .story-word {
+      color: #a8e080;
+      font-size: 1.4rem;
+      display: block;
+      margin-top: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .answer-row {
+      width: 100%;
+      max-width: 460px;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    /* Step 3 special layout */
+    .final-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .line {
+      opacity: 0;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    .line:nth-child(1) { animation-delay: 0.1s; }
+    .line:nth-child(2) { animation-delay: 0.5s; }
+    .line:nth-child(3) { animation-delay: 0.9s; }
+    .line:nth-child(4) { animation-delay: 1.3s; }
+    .line:nth-child(5) { animation-delay: 1.7s; }
+    .line:nth-child(6) { animation-delay: 2.1s; }
+    .line:nth-child(7) { animation-delay: 2.5s; }
+    .line:nth-child(8) { animation-delay: 2.9s; }
+    .line:nth-child(9) { animation-delay: 3.3s; }
+
+    .glow-pulse {
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    .audio-controls {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.55rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(8, 8, 14, 0.72);
+      border: 1px solid rgba(200, 170, 90, 0.28);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 18px rgba(180, 140, 40, 0.12);
+    }
+
+    .timer-box {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 25;
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      background: rgba(8, 8, 14, 0.8);
+      border: 1px solid rgba(200, 170, 90, 0.35);
+      color: #f0d090;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      box-shadow: 0 0 16px rgba(180, 140, 40, 0.12);
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      background: rgba(3, 3, 7, 0.82);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.2rem;
+    }
+
+    .overlay-card {
+      width: min(720px, 94vw);
+      text-align: center;
+      background: rgba(15, 12, 9, 0.92);
+      border: 1px solid rgba(220, 180, 90, 0.34);
+      border-radius: 20px;
+      padding: 1.8rem 1.4rem;
+      box-shadow: 0 0 42px rgba(210, 160, 60, 0.18);
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    .overlay-title {
+      color: #f2de9d;
+      font-size: 1.55rem;
+      line-height: 1.7;
+      text-shadow: 0 0 18px rgba(210, 160, 60, 0.28);
+    }
+
+    .overlay-btn {
+      margin-top: 1.2rem;
+      border: 1px solid rgba(220, 180, 90, 0.54);
+      background: rgba(255, 255, 255, 0.06);
+      color: #f2de9d;
+      border-radius: 999px;
+      padding: 0.5rem 1.3rem;
+      font-family: 'Amiri', serif;
+      font-size: 1.02rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .overlay-btn:hover {
+      background: rgba(255, 255, 255, 0.11);
+      border-color: rgba(220, 180, 90, 0.78);
+    }
+
+    .overlay-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .hint-wrap {
+      width: 100%;
+      max-width: 460px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 1.5rem;
+    }
+
+    .hint-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(200, 170, 90, 0.6);
+      background: rgba(255, 255, 255, 0.06);
+      color: #f0d090;
+      font-family: 'Amiri', serif;
+      font-size: 1rem;
+      cursor: pointer;
+      line-height: 1;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hint-text {
+      color: rgba(230, 205, 145, 0.86);
+      font-size: 0.9rem;
+      text-align: left;
+    }
+
+    .near-msg {
+      color: rgba(240, 210, 140, 0.78);
+      font-size: 0.85rem;
+      margin-left: 0.65rem;
+      text-align: left;
+    }
+
+    .audio-btn {
+      border: 1px solid rgba(200, 170, 90, 0.45);
+      background: rgba(255, 255, 255, 0.06);
+      color: #e8d8a0;
+      border-radius: 999px;
+      padding: 0.35rem 0.85rem;
+      font-family: 'Amiri', serif;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .audio-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(200, 170, 90, 0.65);
+    }
+
+    .volume-slider {
+      width: 120px;
+      accent-color: #d8b050;
+      cursor: pointer;
+    }
+
+    @media (max-width: 640px) {
+      .timer-box {
+        top: 10px;
+      }
+
+      .audio-controls {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        bottom: 12px;
+      }
+
+      .volume-slider {
+        width: 95px;
+      }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { text-shadow: 0 0 20px rgba(220, 190, 80, 0.3); }
+      50% { text-shadow: 0 0 35px rgba(220, 190, 80, 0.65), 0 0 60px rgba(200, 150, 40, 0.2); }
+    }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Stars -->
+  <div class="stars" id="stars"></div>
+
+  <div class="container">
+
+    <!-- STEP 0: Gate screen -->
+    <div id="step0">
+      <div class="message-box">
+        <div class="ornament">✦ ✦ ✦</div>
+        <span class="story-word">Threshold</span>
+        <span class="line" style="color:#f5e07a; font-size:1.5rem;"></span>
+        <br>
+        <span class="line" style="color:rgba(220,200,160,0.7); font-size:1.1rem;">─────────────────</span>
+        <br>
+        <span class="line"></span>
+        <p class="message-text glow-pulse">
+          You wanna see through the secrets?<br><br>Who brought you here then?
+        </p>
+        <div class="divider"></div>
+      </div>
+      <div class="input-section">
+        <span class="input-hint">Prove your identity...</span>
+        <div class="answer-row">
+          <input
+            class="input-field"
+            id="input0"
+            type="text"
+            placeholder="Type here"
+            autocomplete="off"
+            dir="ltr"
+          />
+          <button id="hintBtn0" class="hint-btn hidden" type="button" aria-label="Show hint for question one">?</button>
+        </div>
+        <span class="error-msg" id="err0" style="opacity:0">&#x200B;</span>
+        <div class="hint-wrap">
+          <span id="hintText0" class="hint-text"></span>
+          <span id="nearText0" class="near-msg"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 1: Initial message -->
+    <div id="step1" class="hidden">
+      <div class="message-box">
+        <div class="ornament">✦ ✦ ✦</div>
+        <span class="story-word">They Lied...Hiding the Truth from Me-</span>
+        <span class="line" style="color:#f5e07a; font-size:1.5rem;"></span>
+        <br>
+        <span class="line" style="color:rgba(220,200,160,0.7); font-size:1.1rem;">─────────────────</span>
+        <br>
+        <span class="line"></span>
+        <p class="message-text glow-pulse">Oofie was doing something...<br><br>
+Something that annoyed someone.<br><br>
+Warnings were given.<br>
+Ignored.<br><br>
+A signal repeated...<br>
+Again.<br>
+And again.<br><br>
+What has Oofie been doing recently?
+        </p>
+        <div class="divider"></div>
+      </div>
+      <div class="input-section">
+        <span class="input-hint">Enter what you discovered...</span>
+        <div class="answer-row">
+          <input
+            class="input-field"
+            id="input1"
+            type="text"
+            placeholder="Type here"
+            autocomplete="off"
+            dir="ltr"
+          />
+          <button id="hintBtn1" class="hint-btn hidden" type="button" aria-label="Show hint for question two">?</button>
+        </div>
+        <span class="error-msg" id="err1" style="opacity:0">&#x200B;</span>
+        <div class="hint-wrap">
+          <span id="hintText1" class="hint-text"></span>
+          <span id="nearText1" class="near-msg"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: After first correct answer -->
+    <div id="step2" class="hidden">
+      <div class="message-box glow">
+        <div class="ornament">❖ ❖ ❖</div>
+        <span class="story-word">They gatherd...surrounding me</span>
+        <span class="line" style="color:#f5e07a; font-size:1.5rem;"></span>
+        <br>
+        <span class="line" style="color:rgba(220,200,160,0.7); font-size:1.1rem;">─────────────────</span>
+        <br>
+        <span class="line"></span>
+        <p class="message-text">In a land where art breathes through stone,<br>
+And flavors dance beneath a golden sun...<br><br>
+
+A dish was born -<br>
+Where fire meets cream,<br>
+Chicken brought Towards oven,<br>
+And simplicity becomes legend.<br><br>
+
+White as silk...<br>
+Rich as silence...<br>
+Touched by the hands of Italy.<br><br>
+
+What does Gustave crave?
+        </p>
+        <div class="divider"></div>
+      </div>
+      <div class="input-section">
+        <span class="input-hint">What do you know?</span>
+        <div class="answer-row">
+          <input
+            class="input-field"
+            id="input2"
+            type="text"
+            placeholder="Type here"
+            autocomplete="off"
+            dir="ltr"
+          />
+          <button id="hintBtn2" class="hint-btn hidden" type="button" aria-label="Show hint for question three">?</button>
+        </div>
+        <span class="error-msg" id="err2" style="opacity:0">&#x200B;</span>
+        <div class="hint-wrap">
+          <span id="hintText2" class="hint-text"></span>
+          <span id="nearText2" class="near-msg"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Paradise question -->
+    <div id="step3" class="hidden">
+      <div class="message-box glow">
+        <div class="ornament">❖ ❖ ❖</div>
+        <span class="story-word">I faced them...Fighting them again and again-</span>
+        <span class="line" style="color:#f5e07a; font-size:1.5rem;"></span>
+        <br>
+        <span class="line" style="color:rgba(220,200,160,0.7); font-size:1.1rem;">─────────────────</span>
+        <br>
+        <span class="line"></span>
+        <p class="message-text glow-pulse">
+          In your Demon Realm... a pure soul who brought you here...<br>
+          What happend to him?
+        </p>
+        <div class="divider"></div>
+      </div>
+      <div class="input-section">
+        <span class="input-hint">Tell the palace your truth...</span>
+        <div class="answer-row">
+          <input
+            class="input-field"
+            id="input3"
+            type="text"
+            placeholder="Type here"
+            autocomplete="off"
+            dir="ltr"
+          />
+          <button id="hintBtn3" class="hint-btn hidden" type="button" aria-label="Show hint for question four">?</button>
+        </div>
+        <span class="error-msg" id="err3" style="opacity:0">&#x200B;</span>
+        <div class="hint-wrap">
+          <span id="hintText3" class="hint-text"></span>
+          <span id="nearText3" class="near-msg"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: Paradise question -->
+    <div id="step4" class="hidden">
+      <div class="message-box glow">
+        <div class="ornament">❖ ❖ ❖</div>
+        <span class="story-word">It did hurts...in the Heart..</span>
+        <span class="line" style="color:#f5e07a; font-size:1.5rem;"></span>
+        <br>
+        <span class="line" style="color:rgba(220,200,160,0.7); font-size:1.1rem;">─────────────────</span>
+        <br>
+        <span class="line"></span>
+        <p class="message-text glow-pulse">
+          In it is that which no eye has seen,<br>
+          nor ear has heard,<br>
+          nor has it ever crossed the mind of man.<br><br>
+          What is it?
+        </p>
+        <div class="divider"></div>
+      </div>
+      <div class="input-section">
+        <span class="input-hint">Speak the final name...</span>
+        <div class="answer-row">
+          <input
+            class="input-field"
+            id="input4"
+            type="text"
+            placeholder="Type here"
+            autocomplete="off"
+            dir="ltr"
+          />
+          <button id="hintBtn4" class="hint-btn hidden" type="button" aria-label="Show hint for question five">?</button>
+        </div>
+        <span class="error-msg" id="err4" style="opacity:0">&#x200B;</span>
+        <div class="hint-wrap">
+          <span id="hintText4" class="hint-text"></span>
+          <span id="nearText4" class="near-msg"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: Demon lord question -->
+    <div id="step5" class="hidden">
+      <div class="message-box glow">
+        <div class="ornament">❖ ❖ ❖</div>
+        <span class="story-word">They did it...But they made a mistake-</span>
+        <span class="line" style="color:#f5e07a; font-size:1.5rem;"></span>
+        <br>
+        <span class="line" style="color:rgba(220,200,160,0.7); font-size:1.1rem;">─────────────────</span>
+        <br>
+        <span class="line"></span>
+        <p class="message-text glow-pulse">
+          ...Lq brxu Ghprq Uhdop...<br>
+          Zkdw lv wkh qdph ri wkh Ghprq orug?
+        </p>
+        <div class="divider"></div>
+      </div>
+      <div class="input-section">
+        <span class="input-hint">Decode and reveal the name...</span>
+        <div class="answer-row">
+          <input
+            class="input-field"
+            id="input5"
+            type="text"
+            placeholder="Type here"
+            autocomplete="off"
+            dir="ltr"
+          />
+          <button id="hintBtn5" class="hint-btn hidden" type="button" aria-label="Show hint for question six">?</button>
+        </div>
+        <span class="error-msg" id="err5" style="opacity:0">&#x200B;</span>
+        <div class="hint-wrap">
+          <span id="hintText5" class="hint-text"></span>
+          <span id="nearText5" class="near-msg"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6: Regret question -->
+    <div id="step6" class="hidden">
+      <div class="message-box glow">
+        <div class="ornament">❖ ❖ ❖</div>
+        <span class="story-word">THEY COULDN"T TAKE ME DOWN....I'M STILL-</span>
+        <span class="line" style="color:#f5e07a; font-size:1.5rem;"></span>
+        <br>
+        <span class="line" style="color:rgba(220,200,160,0.7); font-size:1.1rem;">─────────────────</span>
+        <br>
+        <span class="line"></span>
+        <p class="message-text glow-pulse">
+          You...who is reading this...<br>
+          What is Your Regret?
+        </p>
+        <div class="divider"></div>
+      </div>
+      <div class="input-section">
+        <span class="input-hint">Speak it... if you dare.</span>
+        <div class="answer-row">
+          <input
+            class="input-field"
+            id="input6"
+            type="text"
+            placeholder="Type here"
+            autocomplete="off"
+            dir="ltr"
+          />
+        </div>
+        <span class="error-msg" id="err6" style="opacity:0">&#x200B;</span>
+      </div>
+    </div>
+
+    <!-- STEP 7: Moon question -->
+    <div id="step7" class="hidden">
+      <div class="message-box glow">
+        <div class="ornament">❖ ❖ ❖</div>
+        <span class="story-word">My fight is not over...i'm still...standing.</span>
+        <span class="line" style="color:#f5e07a; font-size:1.5rem;"></span>
+        <br>
+        <span class="line" style="color:rgba(220,200,160,0.7); font-size:1.1rem;">─────────────────</span>
+        <br>
+        <span class="line"></span>
+        <p class="message-text glow-pulse">
+          月が綺麗ですね？
+        </p>
+        <div class="divider"></div>
+      </div>
+      <div class="input-section">
+        <span class="input-hint">Answer with your heart...</span>
+        <div class="answer-row">
+          <input
+            class="input-field"
+            id="input7"
+            type="text"
+            placeholder="Type here"
+            autocomplete="off"
+            dir="ltr"
+          />
+          <button id="hintBtn7" class="hint-btn hidden" type="button" aria-label="Show hint for question eight">?</button>
+        </div>
+        <span class="error-msg" id="err7" style="opacity:0">&#x200B;</span>
+        <div class="hint-wrap">
+          <span id="hintText7" class="hint-text"></span>
+          <span id="nearText7" class="near-msg"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 8: Roblox puzzle question -->
+    <div id="step8" class="hidden">
+      <div class="message-box glow">
+        <div class="ornament">❖ ❖ ❖</div>
+        <span class="story-word">I'm Still Here...</span>
+        <span class="line" style="color:#f5e07a; font-size:1.5rem;"></span>
+        <br>
+        <span class="line" style="color:rgba(220,200,160,0.7); font-size:1.1rem;">─────────────────</span>
+        <br>
+        <span class="line"></span>
+        <p class="message-text glow-pulse">
+          In a strange world with stranger shapes,<br>
+          A place to build and share with friends,<br>
+          Holding pieces of countless events...<br><br>
+          You know this world already.<br>
+          Find the pure soul there,<br>
+          and it will give you the answer.
+        </p>
+        <div class="divider"></div>
+      </div>
+      <div class="input-section">
+        <span class="input-hint">Reveal the account name...</span>
+        <div class="answer-row">
+          <input
+            class="input-field"
+            id="input8"
+            type="text"
+            placeholder="Type here"
+            autocomplete="off"
+            dir="ltr"
+          />
+          <button id="hintBtn8" class="hint-btn hidden" type="button" aria-label="Show hint for question nine">?</button>
+        </div>
+        <span class="error-msg" id="err8" style="opacity:0">&#x200B;</span>
+        <div class="hint-wrap">
+          <span id="hintText8" class="hint-text"></span>
+          <span id="nearText8" class="near-msg"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 9: Final message -->
+    <div id="step9" class="hidden">
+      <div class="message-box glow">
+        <div class="ornament">🌿 🌿 🌿</div>
+        <div class="final-container">
+          <p class="message-text final-message">
+            <span class="line" style="color:#f5e07a; font-size:1.5rem;">You learned what I hold and saw what I told you</span>
+            <br>
+            <span class="line" style="color:rgba(220,200,160,0.7); font-size:1.1rem;">─────────────────</span>
+            <br>
+            <span class="line">Why do I see you broken?</span>
+            <span class="line">Did you lose something you loved?</span>
+            <span class="line">Do you know what was hidden from you?</span>
+            <br>
+            <span class="line" style="color:#a8e080; font-size:1.4rem; display:block; margin-top:0.5rem;">
+              It's true, isn't it, Eternity has always been beautiful to me
+            </span>
+            <br>
+            <span class="line" style="color:#f0d090; font-style:italic; font-size:1.15rem; display:block; margin-top:0.6rem;">
+              Tell the one who brought you...<br>that they will see what their eyes once refused to believe
+            </span>
+          </p>
+        </div>
+        <div class="divider" style="margin-top:1.6rem;"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="timerBox" class="timer-box hidden">30:00</div>
+
+  <div id="challengeOverlay" class="overlay hidden">
+    <div class="overlay-card">
+      <p class="overlay-title">
+        I see... so you really want to challenge The Sacred Palace?<br>
+        Prove your worthiness.
+      </p>
+      <button id="continueBtn" class="overlay-btn" type="button">Continue</button>
+    </div>
+  </div>
+
+  <div id="timeUpOverlay" class="overlay hidden">
+    <div class="overlay-card">
+      <p class="overlay-title">
+        Time has been consumed.<br>
+        The palace closes its doors for now.<br>
+        Return wiser, and perhaps the secrets will answer you.
+      </p>
+    </div>
+  </div>
+
+  <div id="hintConfirmOverlay" class="overlay hidden">
+    <div class="overlay-card">
+      <p class="overlay-title">
+        This hint will consume part of your time.<br>
+        3 minutes will be deducted.<br>
+        Are you sure?
+      </p>
+      <div class="overlay-actions">
+        <button id="hintConfirmYes" class="overlay-btn" type="button">Yes, show hint</button>
+        <button id="hintConfirmNo" class="overlay-btn" type="button">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="answerOverlay" class="overlay hidden">
+    <div class="overlay-card">
+      <p id="answerOverlayText" class="overlay-title"></p>
+      <button id="answerOverlayBtn" class="overlay-btn" type="button">Click to continue</button>
+    </div>
+  </div>
+
+  <audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
+
+  <div class="audio-controls">
+    <button id="muteBtn" class="audio-btn" type="button">Mute</button>
+    <input
+      id="volumeSlider"
+      class="volume-slider"
+      type="range"
+      min="0"
+      max="1"
+      step="0.01"
+      value="0.55"
+      aria-label="Volume"
+    />
+  </div>
+
+  <script>
+    // Generate stars
+    const starsEl = document.getElementById('stars');
+    for (let i = 0; i < 140; i++) {
+      const s = document.createElement('span');
+      s.style.setProperty('--d', (3 + Math.random() * 7) + 's');
+      s.style.setProperty('--delay', (-Math.random() * 10) + 's');
+      s.style.setProperty('--max-op', (0.2 + Math.random() * 0.65).toFixed(2));
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.width = s.style.height = (1 + Math.random() * 2.5) + 'px';
+      starsEl.appendChild(s);
+    }
+
+    const bgMusic = document.getElementById('bgMusic');
+    const muteBtn = document.getElementById('muteBtn');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const timerBox = document.getElementById('timerBox');
+    const challengeOverlay = document.getElementById('challengeOverlay');
+    const continueBtn = document.getElementById('continueBtn');
+    const timeUpOverlay = document.getElementById('timeUpOverlay');
+    const hintConfirmOverlay = document.getElementById('hintConfirmOverlay');
+    const hintConfirmYes = document.getElementById('hintConfirmYes');
+    const hintConfirmNo = document.getElementById('hintConfirmNo');
+    const answerOverlay = document.getElementById('answerOverlay');
+    const answerOverlayText = document.getElementById('answerOverlayText');
+    const answerOverlayBtn = document.getElementById('answerOverlayBtn');
+    let musicStarted = false;
+    let timerInterval = null;
+    let remainingSeconds = 20 * 60;
+    let puzzleCompleted = false;
+    let timeIsUp = false;
+    let pendingHintStep = null;
+    let regretAnswered = false;
+    const hintedSteps = new Set();
+    const defaultHints = [
+      'Hint: It is one name you already know.Who made this.',
+      'Hint: Think of a repeated network signal.',
+      'Hint: A creamy Italian chicken pasta dish...alf****.',
+      'Hint: Search for Dehya in server discord.',
+      'Hint: The eternal reward of the righteous.',
+      'Hint: Caesar Cipher decode.',
+      '',
+      'Hint: Translate the text.',
+      'Hint: The pure soul is the one who made this place.'
+    ];
+
+    bgMusic.volume = parseFloat(volumeSlider.value);
+
+    function updateMuteButton() {
+      muteBtn.textContent = bgMusic.muted ? 'Unmute' : 'Mute';
+    }
+
+    function startBackgroundMusic() {
+      if (musicStarted) return;
+      musicStarted = true;
+
+      bgMusic.currentTime = 0;
+      bgMusic.volume = parseFloat(volumeSlider.value);
+      bgMusic.play().then(() => {
+        console.log('Audio started');
+      }).catch((err) => {
+        console.log('Audio failed:', err);
+        musicStarted = false;
+      });
+    }
+
+    function normalizeFirstInput(str) {
+      return str.trim().toLowerCase();
+    }
+
+    function normalizeEnglishInput(str) {
+      return str.trim().toLowerCase();
+    }
+
+    function hasJapaneseChars(str) {
+      return /[\u3040-\u30ff\u3400-\u9fff]/.test(str);
+    }
+
+    function normalize(str) {
+      return str.trim().toLowerCase().replace(/\s+/g, ' ');
+    }
+
+    function compact(str) {
+      return normalize(str).replace(/\s+/g, '');
+    }
+
+    function levenshtein(a, b) {
+      const m = a.length;
+      const n = b.length;
+      const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
+
+      for (let i = 0; i <= m; i++) dp[i][0] = i;
+      for (let j = 0; j <= n; j++) dp[0][j] = j;
+
+      for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+          dp[i][j] = Math.min(
+            dp[i - 1][j] + 1,
+            dp[i][j - 1] + 1,
+            dp[i - 1][j - 1] + cost
+          );
+        }
+      }
+      return dp[m][n];
+    }
+
+    function maybeTypo(input, expectedOptions) {
+      const normalizedInput = compact(input);
+      if (!normalizedInput || normalizedInput.length < 3) return false;
+
+      return expectedOptions.some((option) => {
+        const normalizedExpected = compact(option);
+        const distance = levenshtein(normalizedInput, normalizedExpected);
+        const threshold = Math.max(1, Math.floor(normalizedExpected.length * 0.2));
+        return distance <= threshold;
+      });
+    }
+
+    function formatTime(totalSeconds) {
+      const mins = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+      const secs = String(totalSeconds % 60).padStart(2, '0');
+      return mins + ':' + secs;
+    }
+
+    function onTimeUp() {
+      if (puzzleCompleted || timeIsUp) return;
+      timeIsUp = true;
+      clearInterval(timerInterval);
+      fadeOutAndStopMusic(1300);
+      timeUpOverlay.classList.remove('hidden');
+      ['input0', 'input1', 'input2', 'input3', 'input4', 'input5', 'input6', 'input7'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.disabled = true;
+      });
+      const input8 = document.getElementById('input8');
+      if (input8) input8.disabled = true;
+    }
+
+    function startCountdown() {
+      if (timerInterval || timeIsUp || puzzleCompleted) return;
+      timerBox.classList.remove('hidden');
+      timerBox.textContent = formatTime(remainingSeconds);
+
+      timerInterval = setInterval(() => {
+        remainingSeconds -= 1;
+        if (remainingSeconds <= 0) {
+          remainingSeconds = 0;
+          timerBox.textContent = formatTime(remainingSeconds);
+          onTimeUp();
+          return;
+        }
+        timerBox.textContent = formatTime(remainingSeconds);
+      }, 1000);
+    }
+
+    function revealHintButton(btnId) {
+      document.getElementById(btnId).classList.remove('hidden');
+    }
+
+    function setHint(step, msg) {
+      document.getElementById('hintText' + step).textContent = msg;
+    }
+
+    function setNearMiss(step, msg) {
+      const nearEl = document.getElementById('nearText' + step);
+      if (nearEl) nearEl.textContent = msg;
+    }
+
+    function clearNearMiss(step) {
+      setNearMiss(step, '');
+    }
+
+    function applyHintPenalty() {
+      remainingSeconds = Math.max(0, remainingSeconds - (3 * 60));
+      timerBox.classList.remove('hidden');
+      timerBox.textContent = formatTime(remainingSeconds);
+      if (remainingSeconds <= 0) {
+        onTimeUp();
+      }
+    }
+
+    function showHint(step, defaultHint) {
+      setHint(step, defaultHint);
+    }
+
+    function requestHintConfirmation(step) {
+      pendingHintStep = step;
+      hintConfirmOverlay.classList.remove('hidden');
+      hintConfirmYes.focus();
+    }
+
+    function closeHintConfirmation() {
+      pendingHintStep = null;
+      hintConfirmOverlay.classList.add('hidden');
+    }
+
+    function fadeOutAndStopMusic(durationMs) {
+      if (!musicStarted) return;
+      const startVolume = bgMusic.volume;
+      const start = performance.now();
+
+      function tick(now) {
+        const progress = Math.min(1, (now - start) / durationMs);
+        bgMusic.volume = Math.max(0, startVolume * (1 - progress));
+
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          bgMusic.pause();
+          bgMusic.currentTime = 0;
+          bgMusic.volume = parseFloat(volumeSlider.value);
+          musicStarted = false;
+        }
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    function registerHintButton(step, defaultHint) {
+      const btn = document.getElementById('hintBtn' + step);
+      btn.addEventListener('click', function() {
+        if (timeIsUp || puzzleCompleted) return;
+
+        if (step === 0) {
+          showHint(step, defaultHint);
+          return;
+        }
+
+        if (!hintedSteps.has(step)) {
+          requestHintConfirmation(step);
+          return;
+        }
+
+        showHint(step, defaultHint);
+      });
+    }
+
+    function showError(errEl, msg) {
+      errEl.textContent = msg;
+      errEl.style.opacity = '1';
+      setTimeout(() => { errEl.style.opacity = '0'; }, 2200);
+    }
+
+    function containsKeyword(val, keyword) {
+      const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp('(^|\\W)' + escaped + '(\\W|$)', 'i');
+      return regex.test(val);
+    }
+
+    function hasAnyKeyword(val, arr) {
+      return arr.some((k) => containsKeyword(val, k));
+    }
+
+    function classifyRegretMessage(rawInput) {
+      const val = normalizeEnglishInput(rawInput).replace(/[^a-z0-9\s]/g, ' ');
+      const sadKeywords = [
+        'regret', 'sorry', 'miss', 'lost', 'loss', 'pain', 'hurt', 'sad', 'alone', 'lonely',
+        'heartbreak', 'cry', 'depress', 'grief', 'trauma', 'broken'
+      ];
+      const darkKeywords = [
+        'dark', 'empty', 'void', 'nightmare', 'fear', 'afraid', 'anxiety', 'despair',
+        'suffer', 'suffering', 'tired', 'hopeless', 'self harm', 'suicide'
+      ];
+      const evilKeywords = [
+        'kill', 'murder', 'blood', 'revenge', 'hate everyone', 'burn', 'destroy',
+        'evil', 'devil', 'demon', 'chaos', 'doom'
+      ];
+
+      if (hasAnyKeyword(val, evilKeywords)) {
+        return 'i see... you know? sometimes you hear a lot of voices in your head... don\'t let them win my friend... they only want your <span class="doom-shake">DOOM</span>';
+      }
+
+      if (hasAnyKeyword(val, darkKeywords)) {
+        return 'it\'s really tought ha? you did well actually enduring all these...good';
+      }
+
+      if (hasAnyKeyword(val, sadKeywords) || val.trim().length > 0) {
+        return 'i see...you have been in your own pain? Remember...everything is going to be alright my firend...';
+      }
+
+      return 'i see...you have been in your own pain? Remember...everything is going to be alright my firend...';
+    }
+
+    function isMoonAnswerCorrect(rawInput) {
+      const normalized = normalizeEnglishInput(rawInput);
+      return normalized.includes('moon') && normalized.includes('beautiful');
+    }
+
+    function transition(hideId, showId) {
+      const hideEl = document.getElementById(hideId);
+      hideEl.style.opacity = '0';
+      hideEl.style.transition = 'opacity 0.5s ease';
+      setTimeout(() => {
+        hideEl.classList.add('hidden');
+        hideEl.style.opacity = '';
+        const showEl = document.getElementById(showId);
+        showEl.classList.remove('hidden');
+        showEl.style.opacity = '0';
+        showEl.style.transition = 'opacity 0.7s ease';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            showEl.style.opacity = '1';
+          });
+        });
+      }, 500);
+    }
+
+    function flashCorrect(stepId) {
+      const box = document.querySelector('#' + stepId + ' .message-box');
+      if (!box) return;
+      box.classList.add('glow');
+    }
+
+    function setupRegretInputShake() {
+      const regretInput = document.getElementById('input6');
+      if (!regretInput) return;
+
+      regretInput.addEventListener('input', function() {
+        if (this.value.trim()) {
+          this.classList.add('shaking-text');
+        } else {
+          this.classList.remove('shaking-text');
+        }
+      });
+
+      regretInput.addEventListener('blur', function() {
+        if (!this.value.trim()) {
+          this.classList.remove('shaking-text');
+        }
+      });
+    }
+
+    registerHintButton(0, defaultHints[0]);
+    registerHintButton(1, defaultHints[1]);
+    registerHintButton(2, defaultHints[2]);
+    registerHintButton(3, defaultHints[3]);
+    registerHintButton(4, defaultHints[4]);
+    registerHintButton(5, defaultHints[5]);
+    registerHintButton(7, defaultHints[7]);
+    registerHintButton(8, defaultHints[8]);
+
+    hintConfirmYes.addEventListener('click', function() {
+      if (pendingHintStep === null || timeIsUp || puzzleCompleted) {
+        closeHintConfirmation();
+        return;
+      }
+
+      applyHintPenalty();
+      hintedSteps.add(pendingHintStep);
+      showHint(pendingHintStep, defaultHints[pendingHintStep]);
+      closeHintConfirmation();
+    });
+
+    hintConfirmNo.addEventListener('click', function() {
+      closeHintConfirmation();
+    });
+
+    continueBtn.addEventListener('click', function() {
+      challengeOverlay.classList.add('hidden');
+      transition('step0', 'step1');
+      setTimeout(() => document.getElementById('input1').focus(), 700);
+      startCountdown();
+    });
+
+    muteBtn.addEventListener('click', function() {
+      bgMusic.muted = !bgMusic.muted;
+      updateMuteButton();
+    });
+
+    volumeSlider.addEventListener('input', function() {
+      const nextVolume = parseFloat(this.value);
+      bgMusic.volume = nextVolume;
+      if (nextVolume === 0) {
+        bgMusic.muted = true;
+      } else if (bgMusic.muted) {
+        bgMusic.muted = false;
+      }
+      updateMuteButton();
+    });
+
+    updateMuteButton();
+    setupRegretInputShake();
+
+    // Input 0 → Step 1
+    document.getElementById('input0').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        if (timeIsUp) return;
+        const val = normalizeFirstInput(this.value);
+        if (val === 'dehya' || val === 'gustav') {
+          clearNearMiss(0);
+          startBackgroundMusic();
+          flashCorrect('step0');
+          setTimeout(() => {
+            challengeOverlay.classList.remove('hidden');
+            continueBtn.focus();
+          }, 220);
+        } else {
+          showError(document.getElementById('err0'), 'That is not correct...');
+          revealHintButton('hintBtn0');
+          if (maybeTypo(val, ['dehya', 'gustav'])) {
+            setNearMiss(0, 'You are close. Write the word correctly.');
+          } else {
+            clearNearMiss(0);
+          }
+          this.value = '';
+        }
+      }
+    });
+
+    // Input 1 → Step 2
+    document.getElementById('input1').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        if (timeIsUp) return;
+        const val = normalizeEnglishInput(this.value);
+        const isCorrect = val.includes('ping');
+        if (isCorrect) {
+          clearNearMiss(1);
+          flashCorrect('step1');
+          setTimeout(() => {
+            transition('step1', 'step2');
+            setTimeout(() => document.getElementById('input2').focus(), 700);
+          }, 220);
+        } else {
+          showError(document.getElementById('err1'), 'That is not correct...');
+          revealHintButton('hintBtn1');
+          if (maybeTypo(val, ['ping'])) {
+            setNearMiss(1, 'You are close. Write the word correctly.');
+          } else {
+            clearNearMiss(1);
+          }
+          this.value = '';
+        }
+      }
+    });
+
+    // Input 2 → Step 3
+    document.getElementById('input2').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        if (timeIsUp) return;
+        const val = normalize(this.value);
+        const expected = normalize('chicken alfredo');
+        if (val === expected) {
+          clearNearMiss(2);
+          flashCorrect('step2');
+          setTimeout(() => {
+            transition('step2', 'step3');
+            setTimeout(() => document.getElementById('input3').focus(), 700);
+          }, 220);
+        } else {
+          showError(document.getElementById('err2'), 'That is not correct...');
+          revealHintButton('hintBtn2');
+          if (maybeTypo(val, ['chicken alfredo'])) {
+            setNearMiss(2, 'You are close. Write the word correctly.');
+          } else {
+            clearNearMiss(2);
+          }
+          this.value = '';
+        }
+      }
+    });
+
+    // Input 3 → Step 4
+    document.getElementById('input3').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        if (timeIsUp) return;
+        const val = normalizeEnglishInput(this.value);
+        const isCorrect = val.includes('betray');
+        if (isCorrect) {
+          clearNearMiss(3);
+          flashCorrect('step3');
+          setTimeout(() => {
+            transition('step3', 'step4');
+            setTimeout(() => document.getElementById('input4').focus(), 700);
+          }, 220);
+        } else {
+          showError(document.getElementById('err3'), 'That is not correct...');
+          revealHintButton('hintBtn3');
+          if (maybeTypo(val, ['betray'])) {
+            setNearMiss(3, 'You are close. Write the word correctly.');
+          } else {
+            clearNearMiss(3);
+          }
+          this.value = '';
+        }
+      }
+    });
+
+    // Input 4 → Step 5
+    document.getElementById('input4').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        if (timeIsUp) return;
+        const val = normalizeEnglishInput(this.value);
+        const isCorrect = val === 'paradise' || val === 'heaven';
+        if (isCorrect) {
+          clearNearMiss(4);
+          flashCorrect('step4');
+          setTimeout(() => {
+            transition('step4', 'step5');
+            setTimeout(() => document.getElementById('input5').focus(), 700);
+          }, 220);
+        } else {
+          showError(document.getElementById('err4'), 'That is not correct...');
+          revealHintButton('hintBtn4');
+          if (maybeTypo(val, ['paradise', 'heaven'])) {
+            setNearMiss(4, 'You are close. Write the word correctly.');
+          } else {
+            clearNearMiss(4);
+          }
+          this.value = '';
+        }
+      }
+    });
+
+    // Input 5 → Step 6
+    document.getElementById('input5').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        if (timeIsUp) return;
+        const val = normalizeEnglishInput(this.value);
+        const isCorrect = val === 'mei';
+        if (isCorrect) {
+          clearNearMiss(5);
+          flashCorrect('step5');
+          setTimeout(() => {
+            transition('step5', 'step6');
+            setTimeout(() => document.getElementById('input6').focus(), 700);
+          }, 220);
+        } else {
+          showError(document.getElementById('err5'), 'That is not correct...');
+          revealHintButton('hintBtn5');
+          if (maybeTypo(val, ['mei'])) {
+            setNearMiss(5, 'You are close. Write the word correctly.');
+          } else {
+            clearNearMiss(5);
+          }
+          this.value = '';
+        }
+      }
+    });
+
+    // Input 6 -> Popup response -> Step 7
+    document.getElementById('input6').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        if (timeIsUp || regretAnswered) return;
+        const val = this.value.trim();
+        if (!val) {
+          showError(document.getElementById('err6'), 'Say something... even one word.');
+          return;
+        }
+
+        regretAnswered = true;
+        flashCorrect('step6');
+        answerOverlayText.innerHTML = classifyRegretMessage(val);
+        answerOverlay.classList.remove('hidden');
+        answerOverlayBtn.focus();
+      }
+    });
+
+    answerOverlayBtn.addEventListener('click', function() {
+      if (timeIsUp) return;
+      answerOverlay.classList.add('hidden');
+      transition('step6', 'step7');
+      setTimeout(() => document.getElementById('input7').focus(), 700);
+    });
+
+    // Input 7 -> Step 8
+    document.getElementById('input7').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        if (timeIsUp) return;
+        const val = this.value.trim();
+        if (!val) {
+          showError(document.getElementById('err7'), 'Give your answer to the moon.');
+          return;
+        }
+
+        if (isMoonAnswerCorrect(val)) {
+          clearNearMiss(7);
+          flashCorrect('step7');
+          setTimeout(() => {
+            transition('step7', 'step8');
+            setTimeout(() => document.getElementById('input8').focus(), 700);
+          }, 220);
+        } else {
+          showError(document.getElementById('err7'), 'Not quite. Answer from your heart.');
+          revealHintButton('hintBtn7');
+          if (maybeTypo(val, [
+            'the moon is beautiful isnt it',
+            'the moon is beautiful is it not',
+            'isnt the moon beautiful'
+          ])) {
+            setNearMiss(7, 'You are close. Use the full English meaning.');
+          } else {
+            clearNearMiss(7);
+          }
+        }
+      }
+    });
+
+    function isRobloxAnswerCorrect(rawInput) {
+      const val = normalizeEnglishInput(rawInput);
+      return val === 'ur final message' || val === 'your final message';
+    }
+
+    // Input 8 -> Step 9 (finish)
+    document.getElementById('input8').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        if (timeIsUp) return;
+        const val = this.value.trim();
+        if (!val) {
+          showError(document.getElementById('err8'), 'Find the name and write it.');
+          return;
+        }
+
+        if (isRobloxAnswerCorrect(val)) {
+          clearNearMiss(8);
+          flashCorrect('step8');
+          setTimeout(() => {
+            transition('step8', 'step9');
+            puzzleCompleted = true;
+            clearInterval(timerInterval);
+            fadeOutAndStopMusic(1300);
+          }, 220);
+        } else {
+          showError(document.getElementById('err8'), 'That is not the pure soul account.');
+          revealHintButton('hintBtn8');
+          if (maybeTypo(val, ['dehya', 'gustav'])) {
+            setNearMiss(8, 'You are close. Check spelling carefully.');
+          } else {
+            clearNearMiss(8);
+          }
+          this.value = '';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
