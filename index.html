@@ -213,12 +213,53 @@
       animation: doomShake 0.12s steps(2, end) infinite;
     }
 
+    .exit-shake {
+      display: inline-block;
+      color: #ff6b5b;
+      text-shadow: 0 0 12px rgba(255, 70, 60, 0.45);
+      animation: exitShake 0.12s steps(2, end) infinite;
+      font-weight: 700;
+    }
+
     @keyframes doomShake {
       0% { transform: translate(0, 0) rotate(0deg); }
       25% { transform: translate(-1px, 1px) rotate(-0.5deg); }
       50% { transform: translate(1px, -1px) rotate(0.6deg); }
       75% { transform: translate(-1px, -1px) rotate(-0.4deg); }
       100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    @keyframes exitShake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(-1px, 1px) rotate(-0.5deg); }
+      50% { transform: translate(1px, -1px) rotate(0.6deg); }
+      75% { transform: translate(-1px, -1px) rotate(-0.4deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    .zalgo-line {
+      letter-spacing: 1px;
+      animation: zalgoFlicker 0.18s steps(2, end) infinite;
+      color: #ffb0b0;
+      text-shadow: 0 0 8px rgba(255, 70, 70, 0.5);
+    }
+
+    .glitching {
+      animation: boxGlitch 0.12s steps(2, end) infinite;
+    }
+
+    @keyframes zalgoFlicker {
+      0% { transform: translate(0, 0); opacity: 1; }
+      50% { transform: translate(-1px, 1px); opacity: 0.82; }
+      100% { transform: translate(1px, -1px); opacity: 1; }
+    }
+
+    @keyframes boxGlitch {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(-1px, 1px); }
+      50% { transform: translate(1px, -1px); }
+      75% { transform: translate(-1px, -1px); }
+      100% { transform: translate(0, 0); }
     }
 
     .error-msg {
@@ -588,12 +629,12 @@ What does Gustave crave?
         <span class="line"></span>
         <p class="message-text glow-pulse">
           In your Demon Realm... a pure soul who brought you here...<br>
-          What happend to him?
+          what is the True Title of his masterpiece?
         </p>
         <div class="divider"></div>
       </div>
       <div class="input-section">
-        <span class="input-hint">Tell the palace your truth...</span>
+        <span class="input-hint">Tell the palace the truth...</span>
         <div class="answer-row">
           <input
             class="input-field"
@@ -662,51 +703,40 @@ What does Gustave crave?
         <span class="line" style="color:rgba(220,200,160,0.7); font-size:1.1rem;">─────────────────</span>
         <br>
         <span class="line"></span>
-        <p class="message-text glow-pulse">
-          ...Lq brxu Ghprq Uhdop...<br>
-          Zkdw lv wkh qdph ri wkh Ghprq orug?
+        <p class="message-text glow-pulse" id="glitchQuestionText">
+          Two years ago... in 2024**4<br>
+          The Maker met Ar███ A███sh
+        </p>
+        <p class="message-text hidden" id="glitchQuestionZalgo">
+          <span class="zalgo-line">They drew the plans... and showed him the pa█h to ████</span><br>
+          <span class="zalgo-line">They gathered aro█nd him... and said █████ was the one who vanished</span><br>
+          <span class="zalgo-line">Then all the blame... was pushed onto the Ma██r</span>
         </p>
         <div class="divider"></div>
-      </div>
-      <div class="input-section">
-        <span class="input-hint">Decode and reveal the name...</span>
-        <div class="answer-row">
-          <input
-            class="input-field"
-            id="input5"
-            type="text"
-            placeholder="Type here"
-            autocomplete="off"
-            dir="ltr"
-          />
-          <button id="hintBtn5" class="hint-btn hidden" type="button" aria-label="Show hint for question six">?</button>
-        </div>
-        <span class="error-msg" id="err5" style="opacity:0">&#x200B;</span>
-        <div class="hint-wrap">
-          <span id="hintText5" class="hint-text"></span>
-          <span id="nearText5" class="near-msg"></span>
-        </div>
       </div>
     </div>
 
-    <!-- STEP 6: Regret question -->
+    <!-- STEP 6: Demon lord puzzle -->
     <div id="step6" class="hidden">
       <div class="message-box glow">
         <div class="ornament">❖ ❖ ❖</div>
-        <span class="story-word">THEY COULDN"T TAKE ME DOWN....I'M STILL-</span>
-        <span class="line" style="color:#f5e07a; font-size:1.5rem;"></span>
-        <br>
-        <span class="line" style="color:rgba(220,200,160,0.7); font-size:1.1rem;">─────────────────</span>
-        <br>
-        <span class="line"></span>
         <p class="message-text glow-pulse">
-          You...who is reading this...<br>
-          What is Your Regret?
+          <span class="zalgo-line">A Caesar from Roman time... had two wives</span><br>
+          <span class="zalgo-line">He was given three daughters... and four sons</span><br>
+          <span class="zalgo-line">But war showed no mercy... all the sons were lost</span><br>
+          <span class="zalgo-line">So the daughters remained... and two more heirs were added</span><br>
+          <span class="zalgo-line">Five now stand... carrying the secret and the key</span><br>
+          <span class="zalgo-line">Each one holds a letter... to break the Caesar code</span><br>
+          <span class="zalgo-line">Who gathers them all... then shifts back by five</span><br>
+          <span class="zalgo-line">Will see the truth... and reveal the answer</span>
+          <br><br>
+          <span class="zalgo-line">...Ns dtzw Ijrts Wjfqr...</span><br>
+          <span class="zalgo-line">Bmfy nx ymj sfrj tk ymj Ijrts qtwi?</span>
         </p>
         <div class="divider"></div>
       </div>
       <div class="input-section">
-        <span class="input-hint">Speak it... if you dare.</span>
+        <span class="input-hint">Decode the Caesar key and reveal the secret...</span>
         <div class="answer-row">
           <input
             class="input-field"
@@ -716,8 +746,13 @@ What does Gustave crave?
             autocomplete="off"
             dir="ltr"
           />
+          <button id="hintBtn6" class="hint-btn hidden" type="button" aria-label="Show hint for demon puzzle">?</button>
         </div>
         <span class="error-msg" id="err6" style="opacity:0">&#x200B;</span>
+        <div class="hint-wrap">
+          <span id="hintText6" class="hint-text"></span>
+          <span id="nearText6" class="near-msg"></span>
+        </div>
       </div>
     </div>
 
@@ -732,7 +767,8 @@ What does Gustave crave?
         <br>
         <span class="line"></span>
         <p class="message-text glow-pulse">
-          月が綺麗ですね？
+          The moon is beautiful, isn't it?<br>
+          De██a_██1
         </p>
         <div class="divider"></div>
       </div>
@@ -771,14 +807,19 @@ What does Gustave crave?
           In a strange world with stranger shapes,<br>
           A place to build and share with friends,<br>
           Holding pieces of countless events...<br><br>
-          You know this world already.<br>
+
+          Today, this world is experiencing great Hazard,<br>
+          Sudden interruptions, silences among individuals, predators seeking preys.<br>
+          And yet... amidst the chaos, the pure souls remain.<br><br>
+          You already know this world.<br>
           Find the pure soul there,<br>
+          Its name was mentioned in the previous questions...<br>
           and it will give you the answer.
         </p>
         <div class="divider"></div>
       </div>
       <div class="input-section">
-        <span class="input-hint">Reveal the account name...</span>
+        <span class="input-hint">Uncover what the pure soul wants to tell you...</span>
         <div class="answer-row">
           <input
             class="input-field"
@@ -813,11 +854,11 @@ What does Gustave crave?
             <span class="line">Do you know what was hidden from you?</span>
             <br>
             <span class="line" style="color:#a8e080; font-size:1.4rem; display:block; margin-top:0.5rem;">
-              It's true, isn't it, Eternity has always been beautiful to me
+              It's true, isn't it, Eternity will have it one day.
             </span>
             <br>
             <span class="line" style="color:#f0d090; font-style:italic; font-size:1.15rem; display:block; margin-top:0.6rem;">
-              Tell the one who brought you...<br>that they will see what their eyes once refused to believe
+              Tell the one who brought you...<br>The maker of this place...you finished his making...and the is not the final
             </span>
           </p>
         </div>
@@ -831,11 +872,14 @@ What does Gustave crave?
 
   <div id="challengeOverlay" class="overlay hidden">
     <div class="overlay-card">
-      <p class="overlay-title">
+      <p id="challengeText" class="overlay-title">
         I see... so you really want to challenge The Sacred Palace?<br>
         Prove your worthiness.
       </p>
-      <button id="continueBtn" class="overlay-btn" type="button">Continue</button>
+      <div class="overlay-actions">
+        <button id="continueYesBtn" class="overlay-btn" type="button">Yes</button>
+        <button id="continueNoBtn" class="overlay-btn" type="button">No</button>
+      </div>
     </div>
   </div>
 
@@ -871,6 +915,7 @@ What does Gustave crave?
   </div>
 
   <audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
+  <audio id="alertSfx" src="Amber alert Sound Effect.mp3" preload="auto"></audio>
 
   <div class="audio-controls">
     <button id="muteBtn" class="audio-btn" type="button">Mute</button>
@@ -901,11 +946,14 @@ What does Gustave crave?
     }
 
     const bgMusic = document.getElementById('bgMusic');
+    const alertSfx = document.getElementById('alertSfx');
     const muteBtn = document.getElementById('muteBtn');
     const volumeSlider = document.getElementById('volumeSlider');
     const timerBox = document.getElementById('timerBox');
     const challengeOverlay = document.getElementById('challengeOverlay');
-    const continueBtn = document.getElementById('continueBtn');
+    const challengeText = document.getElementById('challengeText');
+    const continueYesBtn = document.getElementById('continueYesBtn');
+    const continueNoBtn = document.getElementById('continueNoBtn');
     const timeUpOverlay = document.getElementById('timeUpOverlay');
     const hintConfirmOverlay = document.getElementById('hintConfirmOverlay');
     const hintConfirmYes = document.getElementById('hintConfirmYes');
@@ -913,9 +961,12 @@ What does Gustave crave?
     const answerOverlay = document.getElementById('answerOverlay');
     const answerOverlayText = document.getElementById('answerOverlayText');
     const answerOverlayBtn = document.getElementById('answerOverlayBtn');
+    const glitchQuestionText = document.getElementById('glitchQuestionText');
+    const glitchQuestionZalgo = document.getElementById('glitchQuestionZalgo');
     let musicStarted = false;
+    let alertPlaying = false;
     let timerInterval = null;
-    let remainingSeconds = 20 * 60;
+    let remainingSeconds = 30 * 60;
     let puzzleCompleted = false;
     let timeIsUp = false;
     let pendingHintStep = null;
@@ -927,16 +978,24 @@ What does Gustave crave?
       'Hint: A creamy Italian chicken pasta dish...alf****.',
       'Hint: Search for Dehya in server discord.',
       'Hint: The eternal reward of the righteous.',
-      'Hint: Caesar Cipher decode.',
-      '',
+      'Hint: Caesar Cipher decode. Key = 3.',
+      'Hint: Caesar Cipher decode. Key = 5.',
       'Hint: Translate the text.',
       'Hint: The pure soul is the one who made this place.'
     ];
 
+    const ALERT_BASE_VOLUME = 0.2;
+
     bgMusic.volume = parseFloat(volumeSlider.value);
+    alertSfx.volume = Math.min(ALERT_BASE_VOLUME, parseFloat(volumeSlider.value));
+
+    function updateAlertVolume() {
+      alertSfx.volume = Math.min(ALERT_BASE_VOLUME, parseFloat(volumeSlider.value));
+    }
 
     function updateMuteButton() {
       muteBtn.textContent = bgMusic.muted ? 'Unmute' : 'Mute';
+      alertSfx.muted = bgMusic.muted;
     }
 
     function startBackgroundMusic() {
@@ -959,6 +1018,13 @@ What does Gustave crave?
 
     function normalizeEnglishInput(str) {
       return str.trim().toLowerCase();
+    }
+
+    function closePageSafely() {
+      window.close();
+      setTimeout(() => {
+        window.location.href = 'about:blank';
+      }, 300);
     }
 
     function hasJapaneseChars(str) {
@@ -1106,8 +1172,95 @@ What does Gustave crave?
       requestAnimationFrame(tick);
     }
 
+    function fadeOutAndPauseMusic(durationMs) {
+      if (!musicStarted) return;
+      const startVolume = bgMusic.volume;
+      const start = performance.now();
+
+      function tick(now) {
+        const progress = Math.min(1, (now - start) / durationMs);
+        bgMusic.volume = Math.max(0, startVolume * (1 - progress));
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          bgMusic.pause();
+          bgMusic.volume = parseFloat(volumeSlider.value);
+        }
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    function fadeInAndResumeMusic(durationMs) {
+      const targetVolume = parseFloat(volumeSlider.value);
+      bgMusic.volume = 0;
+      bgMusic.play().then(() => {
+        musicStarted = true;
+        const start = performance.now();
+
+        function tick(now) {
+          const progress = Math.min(1, (now - start) / durationMs);
+          bgMusic.volume = targetVolume * progress;
+          if (progress < 1) {
+            requestAnimationFrame(tick);
+          }
+        }
+
+        requestAnimationFrame(tick);
+      }).catch(() => {
+        bgMusic.volume = targetVolume;
+      });
+    }
+
+    function playAlertSfx() {
+      alertSfx.currentTime = 0;
+      updateAlertVolume();
+      alertSfx.play().then(() => {
+        alertPlaying = true;
+      }).catch(() => {
+        alertPlaying = false;
+      });
+    }
+
+    function stopAlertSfx() {
+      if (!alertPlaying && alertSfx.paused) return;
+      alertSfx.pause();
+      alertSfx.currentTime = 0;
+      alertPlaying = false;
+    }
+
+    function runGlitchQuestionSequence() {
+      const box = document.querySelector('#step5 .message-box');
+      if (!box) {
+        transition('step5', 'step6');
+        setTimeout(() => document.getElementById('input6').focus(), 700);
+        return;
+      }
+
+      glitchQuestionZalgo.classList.add('hidden');
+      glitchQuestionText.classList.remove('hidden');
+
+      setTimeout(() => {
+        fadeOutAndPauseMusic(900);
+        playAlertSfx();
+        box.classList.add('glitching');
+        glitchQuestionZalgo.classList.remove('hidden');
+      }, 1300);
+
+      setTimeout(() => {
+        box.classList.remove('glitching');
+        stopAlertSfx();
+        transition('step5', 'step6');
+        setTimeout(() => {
+          document.getElementById('input6').focus();
+          fadeInAndResumeMusic(1200);
+        }, 700);
+      }, 3700);
+    }
+
     function registerHintButton(step, defaultHint) {
       const btn = document.getElementById('hintBtn' + step);
+      if (!btn) return;
       btn.addEventListener('click', function() {
         if (timeIsUp || puzzleCompleted) return;
 
@@ -1226,6 +1379,7 @@ What does Gustave crave?
     registerHintButton(3, defaultHints[3]);
     registerHintButton(4, defaultHints[4]);
     registerHintButton(5, defaultHints[5]);
+    registerHintButton(6, defaultHints[6]);
     registerHintButton(7, defaultHints[7]);
     registerHintButton(8, defaultHints[8]);
 
@@ -1245,11 +1399,18 @@ What does Gustave crave?
       closeHintConfirmation();
     });
 
-    continueBtn.addEventListener('click', function() {
+    continueYesBtn.addEventListener('click', function() {
       challengeOverlay.classList.add('hidden');
       transition('step0', 'step1');
       setTimeout(() => document.getElementById('input1').focus(), 700);
       startCountdown();
+    });
+
+    continueNoBtn.addEventListener('click', function() {
+      challengeText.innerHTML = 'No worries... you are free to choose, not forced.<span class="exit-shake"> Leave </span>now.';
+      continueYesBtn.classList.add('hidden');
+      continueNoBtn.classList.add('hidden');
+      setTimeout(closePageSafely, 5000);
     });
 
     muteBtn.addEventListener('click', function() {
@@ -1260,6 +1421,7 @@ What does Gustave crave?
     volumeSlider.addEventListener('input', function() {
       const nextVolume = parseFloat(this.value);
       bgMusic.volume = nextVolume;
+      updateAlertVolume();
       if (nextVolume === 0) {
         bgMusic.muted = true;
       } else if (bgMusic.muted) {
@@ -1276,18 +1438,21 @@ What does Gustave crave?
       if (e.key === 'Enter') {
         if (timeIsUp) return;
         const val = normalizeFirstInput(this.value);
-        if (val === 'dehya' || val === 'gustav') {
+        if (val === 'dehya' || val === 'gustav' || val === 'dehya_441' || val === 'dehya441') {
           clearNearMiss(0);
           startBackgroundMusic();
           flashCorrect('step0');
           setTimeout(() => {
+            challengeText.innerHTML = 'I see... so you really want to challenge The Sacred Palace?<br>Prove your worthiness.';
+            continueYesBtn.classList.remove('hidden');
+            continueNoBtn.classList.remove('hidden');
             challengeOverlay.classList.remove('hidden');
-            continueBtn.focus();
+            continueYesBtn.focus();
           }, 220);
         } else {
           showError(document.getElementById('err0'), 'That is not correct...');
           revealHintButton('hintBtn0');
-          if (maybeTypo(val, ['dehya', 'gustav'])) {
+          if (maybeTypo(val, ['dehya', 'gustav', 'dehya_441'])) {
             setNearMiss(0, 'You are close. Write the word correctly.');
           } else {
             clearNearMiss(0);
@@ -1353,8 +1518,17 @@ What does Gustave crave?
     document.getElementById('input3').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') {
         if (timeIsUp) return;
-        const val = normalizeEnglishInput(this.value);
-        const isCorrect = val.includes('betray');
+        const val = normalizeEnglishInput(this.value)
+          .replace(/[^a-z0-9\s]/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+        const acceptedStep3Answers = [
+          'the last maker of this century',
+          'the last maker in this century',
+          'last maker of this century',
+          'last maker in this century'
+        ];
+        const isCorrect = acceptedStep3Answers.some((answer) => val === answer || val.includes(answer));
         if (isCorrect) {
           clearNearMiss(3);
           flashCorrect('step3');
@@ -1365,7 +1539,7 @@ What does Gustave crave?
         } else {
           showError(document.getElementById('err3'), 'That is not correct...');
           revealHintButton('hintBtn3');
-          if (maybeTypo(val, ['betray'])) {
+          if (maybeTypo(val, acceptedStep3Answers)) {
             setNearMiss(3, 'You are close. Write the word correctly.');
           } else {
             clearNearMiss(3);
@@ -1386,7 +1560,7 @@ What does Gustave crave?
           flashCorrect('step4');
           setTimeout(() => {
             transition('step4', 'step5');
-            setTimeout(() => document.getElementById('input5').focus(), 700);
+            setTimeout(runGlitchQuestionSequence, 760);
           }, 220);
         } else {
           showError(document.getElementById('err4'), 'That is not correct...');
@@ -1401,55 +1575,30 @@ What does Gustave crave?
       }
     });
 
-    // Input 5 → Step 6
-    document.getElementById('input5').addEventListener('keydown', function(e) {
+    // Input 6 -> Step 7
+    document.getElementById('input6').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') {
         if (timeIsUp) return;
         const val = normalizeEnglishInput(this.value);
         const isCorrect = val === 'mei';
         if (isCorrect) {
-          clearNearMiss(5);
-          flashCorrect('step5');
+          clearNearMiss(6);
+          flashCorrect('step6');
           setTimeout(() => {
-            transition('step5', 'step6');
-            setTimeout(() => document.getElementById('input6').focus(), 700);
+            transition('step6', 'step7');
+            setTimeout(() => document.getElementById('input7').focus(), 700);
           }, 220);
         } else {
-          showError(document.getElementById('err5'), 'That is not correct...');
-          revealHintButton('hintBtn5');
+          showError(document.getElementById('err6'), 'That is not correct...');
+          revealHintButton('hintBtn6');
           if (maybeTypo(val, ['mei'])) {
-            setNearMiss(5, 'You are close. Write the word correctly.');
+            setNearMiss(6, 'You are close. Write the word correctly.');
           } else {
-            clearNearMiss(5);
+            clearNearMiss(6);
           }
           this.value = '';
         }
       }
-    });
-
-    // Input 6 -> Popup response -> Step 7
-    document.getElementById('input6').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        if (timeIsUp || regretAnswered) return;
-        const val = this.value.trim();
-        if (!val) {
-          showError(document.getElementById('err6'), 'Say something... even one word.');
-          return;
-        }
-
-        regretAnswered = true;
-        flashCorrect('step6');
-        answerOverlayText.innerHTML = classifyRegretMessage(val);
-        answerOverlay.classList.remove('hidden');
-        answerOverlayBtn.focus();
-      }
-    });
-
-    answerOverlayBtn.addEventListener('click', function() {
-      if (timeIsUp) return;
-      answerOverlay.classList.add('hidden');
-      transition('step6', 'step7');
-      setTimeout(() => document.getElementById('input7').focus(), 700);
     });
 
     // Input 7 -> Step 8
@@ -1462,26 +1611,12 @@ What does Gustave crave?
           return;
         }
 
-        if (isMoonAnswerCorrect(val)) {
-          clearNearMiss(7);
-          flashCorrect('step7');
-          setTimeout(() => {
-            transition('step7', 'step8');
-            setTimeout(() => document.getElementById('input8').focus(), 700);
-          }, 220);
-        } else {
-          showError(document.getElementById('err7'), 'Not quite. Answer from your heart.');
-          revealHintButton('hintBtn7');
-          if (maybeTypo(val, [
-            'the moon is beautiful isnt it',
-            'the moon is beautiful is it not',
-            'isnt the moon beautiful'
-          ])) {
-            setNearMiss(7, 'You are close. Use the full English meaning.');
-          } else {
-            clearNearMiss(7);
-          }
-        }
+        clearNearMiss(7);
+        flashCorrect('step7');
+        setTimeout(() => {
+          transition('step7', 'step8');
+          setTimeout(() => document.getElementById('input8').focus(), 700);
+        }, 220);
       }
     });
 
